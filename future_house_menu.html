@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future House Coffee — قائمة الطعام</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9973A;
+    --gold-light: #E8C97A;
+    --gold-pale: #F5EDD3;
+    --dark: #0E0800;
+    --dark2: #1A1000;
+    --dark3: #251800;
+    --cream: #FAF3E0;
+    --cream2: #F0E4C4;
+    --text: #2A1A00;
+    --muted: #7A5C2A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ===== HERO HEADER ===== */
+  .hero {
+    background: var(--dark);
+    min-height: 38vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 1.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,151,58,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 100%, rgba(201,151,58,0.08) 0%, transparent 60%);
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .logo-emblem {
+    width: 80px;
+    height: 80px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    position: relative;
+  }
+  .logo-emblem::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 0.5px solid rgba(201,151,58,0.4);
+    border-radius: 50%;
+  }
+  .logo-emblem svg { width: 36px; height: 36px; }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 300;
+    color: var(--gold-light);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+
+  .hero-sub {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-top: 6px;
+    opacity: 0.8;
+  }
+
+  .hero-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 1rem auto 0;
+    max-width: 200px;
+  }
+  .hero-line span {
+    flex: 1;
+    height: 0.5px;
+    background: linear-gradient(to left, transparent, var(--gold), transparent);
+  }
+  .hero-line i { color: var(--gold); font-size: 8px; opacity: 0.7; }
+
+  /* ===== NAV TABS ===== */
+  .nav-wrap {
+    background: var(--dark2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(201,151,58,0.2);
+  }
+
+  .nav-tabs {
+    display: flex;
+    justify-content: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .nav-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    color: rgba(201,151,58,0.5);
+    padding: 1rem 0.5rem;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.25s;
+    position: relative;
+  }
+  .nav-tab .tab-icon-wrap {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    transition: all 0.25s;
+  }
+  .nav-tab.active, .nav-tab:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+  .nav-tab.active .tab-icon-wrap {
+    background: rgba(201,151,58,0.12);
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .main { max-width: 700px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+  .section { display: none; }
+  .section.active {
+    display: block;
+    animation: slideUp 0.35s ease;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 600;
+    color: var(--dark);
+    letter-spacing: 2px;
+  }
+
+  .section-header p {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px auto;
+    max-width: 160px;
+  }
+  .ornament span { flex: 1; height: 0.5px; background: var(--gold); opacity: 0.5; }
+  .ornament i { color: var(--gold); font-size: 8px; }
+
+  /* ===== MENU GRID ===== */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .menu-card {
+    background: white;
+    border: 1px solid rgba(201,151,58,0.2);
+    border-radius: 4px;
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .menu-card::before {
+    content: '';
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--gold);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s;
+  }
+
+  .menu-card:hover {
+    border-color: rgba(201,151,58,0.5);
+    box-shadow: 0 4px 20px rgba(201,151,58,0.12);
+  }
+  .menu-card:hover::before { transform: scaleY(1); }
+
+  .card-info { flex: 1; }
+
+  .card-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-hot  { background: #D4521E; }
+  .dot-cold { background: #2A8BC4; }
+  .dot-sweet{ background: #C44FA0; }
+
+  .card-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .card-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--gold);
+    white-space: nowrap;
+    align-self: center;
+  }
+
+  .card-price span {
+    font-size: 11px;
+    font-family: 'Cairo', sans-serif;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* ===== CATEGORY LABEL ===== */
+  .cat-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 1.75rem 0 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cat-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: rgba(201,151,58,0.3);
+  }
+
+  /* ===== FOOTER NOTE ===== */
+  .menu-note {
+    text-align: center;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(201,151,58,0.2);
+  }
+  .menu-note p {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    line-height: 2;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark);
+    text-align: center;
+    padding: 1.5rem;
+    color: rgba(201,151,58,0.5);
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 480px) {
+    .menu-grid { grid-template-columns: 1fr; }
+    .hero h1 { letter-spacing: 3px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="logo-emblem">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 4 L20.5 12 L29 12 L22.5 17.5 L25 26 L18 21 L11 26 L13.5 17.5 L7 12 L15.5 12 Z" fill="none" stroke="#C9973A" stroke-width="1"/>
+        <circle cx="18" cy="18" r="7" fill="none" stroke="#C9973A" stroke-width="0.7" opacity="0.5"/>
+      </svg>
+    </div>
+    <h1>Future House</h1>
+    <p class="hero-sub">Coffee &amp; Patisserie</p>
+    <div class="hero-line">
+      <span></span><i>✦</i><span></span>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-wrap">
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showSection('hot', this)">
+      <div class="tab-icon-wrap">☕</div>
+      <span>ساخن</span>
+    </button>
+    <button class="nav-tab" onclick="showSection('cold', this)">
+      <div class="tab-icon-wrap">🧊</div>
+      <span>بارد</span>
+    </button>
+    <button class="nav-tab" onclick="showSection('sweets', this)">
+      <div class="tab-icon-wrap">🍰</div>
+      <span>حلويات</span>
+    </button>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- HOT DRINKS -->
+  <section id="hot" class="section active">
+    <div class="section-header">
+      <h2>المشاريب الساخنة</h2>
+      <div class="ornament"><span></span><i>✦</i><span></span></div>
+      <p>Hot Beverages</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-hot"></span>إسبريسو</div>
+          <div class="card-desc">شوت مركّز من أجود أنواع البن الإيطالي</div>
+        </div>
+        <div class="card-price">12 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-hot"></span>دبل إسبريسو</div>
+          <div class="card-desc">شوتان مزدوجان لعشاق القهوة القوية</div>
+        </div>
+        <div class="card-price">16 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-hot"></span>أمريكانو</div>
+          <div class="card-desc">إسبريسو مخفف بالماء الساخن</div>
+        </div>
+        <div class="card-price">15 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-hot"></span>كابتشينو</div>
+          <div class="card-desc">إسبريسو مع الحليب المبخّر والرغوة الكريمية</div>
+        </div>
+        <div class="card-price">18 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-hot"></span>لاتيه</div>
+          <div class="card-desc">إسبريسو بالحليب الناعم الكريمي</div>
+        </div>
+        <div class="card-price">18 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-hot"></span>موكا</div>
+          <div class="card-desc">إسبريسو بالشوكولاتة البلجيكية والحليب</div>
+        </div>
+        <div class="card-price">20 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-hot"></span>ماتشا لاتيه</div>
+          <div class="card-desc">ماتشا يابانية أصيلة مع الحليب الكريمي</div>
+        </div>
+        <div class="card-price">22 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-hot"></span>هوت شوكولاتة</div>
+          <div class="card-desc">شوكولاتة داكنة فاخرة مع الحليب الدافئ</div>
+        </div>
+        <div class="card-price">20 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-hot"></span>شاي أخضر</div>
+          <div class="card-desc">شاي أخضر ياباني فاخر درجة سيريموني</div>
+        </div>
+        <div class="card-price">12 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-hot"></span>شاي مغربي</div>
+          <div class="card-desc">شاي بالنعناع الطازج على الطريقة المغربية</div>
+        </div>
+        <div class="card-price">14 <span>₪</span></div>
+      </div>
+    </div>
+    <div class="menu-note">
+      <p>✦ جميع مشاريبنا تُحضَّر طازجة لحظة الطلب<br>يمكن تخصيص درجة الحلاوة والحليب حسب رغبتك</p>
+    </div>
+  </section>
+
+  <!-- COLD DRINKS -->
+  <section id="cold" class="section">
+    <div class="section-header">
+      <h2>المشاريب الباردة</h2>
+      <div class="ornament"><span></span><i>✦</i><span></span></div>
+      <p>Cold Beverages</p>
+    </div>
+
+    <div class="cat-label">قهوة باردة</div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-cold"></span>كولد برو</div>
+          <div class="card-desc">قهوة منقوعة على البارد 24 ساعة — سلسة وعميقة</div>
+        </div>
+        <div class="card-price">22 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-cold"></span>آيس لاتيه</div>
+          <div class="card-desc">لاتيه مثلج بالحليب الطازج على الثلج</div>
+        </div>
+        <div class="card-price">20 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-cold"></span>فرابوتشينو</div>
+          <div class="card-desc">مشروب مثلج كريمي مخفوق بالقهوة</div>
+        </div>
+        <div class="card-price">25 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-cold"></span>آيس ماتشا</div>
+          <div class="card-desc">ماتشا يابانية باردة بالحليب على الثلج</div>
+        </div>
+        <div class="card-price">24 <span>₪</span></div>
+      </div>
+    </div>
+
+    <div class="cat-label">مشاريب منعشة</div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-cold"></span>موهيتو</div>
+          <div class="card-desc">نعناع طازج بالليمون والسودا المنعشة</div>
+        </div>
+        <div class="card-price">18 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-cold"></span>ليموناضة</div>
+          <div class="card-desc">ليمون طازج مع النعناع والثلج المجروش</div>
+        </div>
+        <div class="card-price">15 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-cold"></span>سموذي منجا</div>
+          <div class="card-desc">منجو استوائي طازج مع جوز الهند</div>
+        </div>
+        <div class="card-price">22 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-cold"></span>شيك شوكولاتة</div>
+          <div class="card-desc">شيك كريمي غني بالشوكولاتة البلجيكية</div>
+        </div>
+        <div class="card-price">22 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-cold"></span>شيك فراولة</div>
+          <div class="card-desc">فراولة طازجة مع الحليب والآيس كريم</div>
+        </div>
+        <div class="card-price">22 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-cold"></span>عصير برتقال طازج</div>
+          <div class="card-desc">برتقال طازج معصور لحظة الطلب</div>
+        </div>
+        <div class="card-price">16 <span>₪</span></div>
+      </div>
+    </div>
+    <div class="menu-note">
+      <p>✦ يمكن تخصيص درجة الحلاوة والثلج حسب رغبتك</p>
+    </div>
+  </section>
+
+  <!-- SWEETS -->
+  <section id="sweets" class="section">
+    <div class="section-header">
+      <h2>الحلويات</h2>
+      <div class="ornament"><span></span><i>✦</i><span></span></div>
+      <p>Patisserie & Desserts</p>
+    </div>
+
+    <div class="cat-label">كيكات وتورتات</div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-sweet"></span>تشيز كيك نيويورك</div>
+          <div class="card-desc">تشيز كيك كلاسيكي بصوص التوت الأحمر</div>
+        </div>
+        <div class="card-price">28 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-sweet"></span>لوتس كيك</div>
+          <div class="card-desc">كيك اللوتس الكريمي بالبسكويت المكسّر</div>
+        </div>
+        <div class="card-price">32 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-sweet"></span>تيراميسو</div>
+          <div class="card-desc">الكلاسيكي الإيطالي بالقهوة والماسكاربوني</div>
+        </div>
+        <div class="card-price">30 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-sweet"></span>ريد فيلفيت</div>
+          <div class="card-desc">كيك المخمل الأحمر بكريمة الجبن الناعمة</div>
+        </div>
+        <div class="card-price">30 <span>₪</span></div>
+      </div>
+    </div>
+
+    <div class="cat-label">مخبوزات وحلويات</div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-sweet"></span>براونيز</div>
+          <div class="card-desc">براونيز شوكولاتة بلجيكية غنية ومحشوة</div>
+        </div>
+        <div class="card-price">20 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-sweet"></span>كروسان زبدة</div>
+          <div class="card-desc">كروسان فرنسي هش وذهبي محضّر يومياً</div>
+        </div>
+        <div class="card-price">16 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-sweet"></span>كوكيز شوكولاتة</div>
+          <div class="card-desc">كوكيز طازج دافئ بالشوكولاتة الداكنة</div>
+        </div>
+        <div class="card-price">12 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-sweet"></span>وافل بلجيكي</div>
+          <div class="card-desc">وافل بلجيكي بالعسل والقشطة المخفوقة</div>
+        </div>
+        <div class="card-price">24 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-sweet"></span>مافن توت أزرق</div>
+          <div class="card-desc">مافن طري بالتوت الأزرق الطازج</div>
+        </div>
+        <div class="card-price">16 <span>₪</span></div>
+      </div>
+      <div class="menu-card">
+        <div class="card-info">
+          <div class="card-name"><span class="dot dot-sweet"></span>كنافة بالجبن</div>
+          <div class="card-desc">كنافة شرقية أصيلة بالجبن والعجينة الذهبية</div>
+        </div>
+        <div class="card-price">22 <span>₪</span></div>
+      </div>
+    </div>
+
+    <div class="menu-note">
+      <p>✦ حلوياتنا محضّرة يومياً بأجود المكونات الطازجة<br>بعض الأصناف محدودة الكمية يومياً</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>FUTURE HOUSE COFFEE ✦ بيت القهوة والأناقة</p>
+</footer>
+
+<script>
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: document.querySelector('.nav-wrap').offsetTop - 10, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
